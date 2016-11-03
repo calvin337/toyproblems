@@ -16,7 +16,26 @@
 // anagramPosition("STARK"  ) => 92
 
 // Code:
+
+//IN PROGRESS, DOESNT WORK FOR LARGE STRINGS
 function anagramPosition (string) {
-  // Write your code here, and
-  // return your final answer.
+  let anaObj = {};
+  let index = 0;
+  let strArr = string.split('').sort();
+  var recurse = function(choices, currStr) {
+    if(currStr.length === string.length && !anaObj[currStr]) {
+      anaObj[currStr] = currStr;
+      if(currStr === string) {
+       	index = Object.keys(anaObj).length;
+      }
+    } else {
+      for(var i = 0; i < choices.length; i++) {
+        let curr = choices.splice(i, 1);
+        recurse(choices, currStr+curr);
+        choices.splice(i, 0, curr);
+      }
+    }
+  }
+  recurse(strArr, '');
+  return index;
 }
