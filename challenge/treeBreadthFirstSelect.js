@@ -46,11 +46,30 @@ var Tree = function(value){
   this.children = [];
 };
 
+/*
+
+
+*/
 Tree.prototype.BFSelect = function(filter) {
-  var queue = new Queue();
+  let filtered = [];
+  var queue = [];
 
-  //Your code here
+  if(filter(this.value, 0))
+    filtered.push(this.value);
+  var recurse = function(tree, depth) {
+    tree.children.forEach(child => {
+      if(filter(child.value, depth))
+        filtered.push(child.value);
+      queue.push(child);
+    });
 
+    while(queue.length) {
+      recurse(queue.shift(), depth+1)
+    }
+  }
+
+  recurse(this, 1);
+  return filtered;
 };
 
 /**
