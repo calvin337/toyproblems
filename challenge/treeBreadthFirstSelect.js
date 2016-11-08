@@ -52,23 +52,20 @@ var Tree = function(value){
 */
 Tree.prototype.BFSelect = function(filter) {
   let filtered = [];
-  var queue = [];
 
-  if(filter(this.value, 0))
-    filtered.push(this.value);
-  var recurse = function(tree, depth) {
-    tree.children.forEach(child => {
-      if(filter(child.value, depth))
-        filtered.push(child.value);
-      queue.push(child);
-    });
-
-    while(queue.length) {
-      recurse(queue.shift(), depth+1)
+  const recurse = (nodes, depth) => {
+    let queue = [];
+    while(nodes.length) {
+      let curr = nodes.shift();
+      if(filter(curr.value, depth))
+        filtered.push(curr.value);
+      curr.children.forEach(child => queue.push(child));
     }
+
+    if(queue.length) recurse(queue, depth+1)
   }
 
-  recurse(this, 1);
+  recurse([this], 0);
   return filtered;
 };
 
