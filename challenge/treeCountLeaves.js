@@ -43,7 +43,18 @@ var Tree = function(value){
 };
 
 Tree.prototype.countLeaves = function () {
-  // TODO: implement me!
+  let leaves = 0;
+  const recurse = (node) => {
+    if(node.children.length === 0) {
+      leaves++;
+    }
+    node.children.forEach(child => {
+      recurse(child);
+    });
+  }
+
+  recurse(this);
+  return leaves;
 }
 
 /**
@@ -99,4 +110,3 @@ Tree.prototype.removeChild = function(child){
     throw new Error("That node is not an immediate child of this tree");
   }
 };
-
