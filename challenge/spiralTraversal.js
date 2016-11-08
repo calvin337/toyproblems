@@ -13,6 +13,29 @@
 
 
 // Code:
-function spiralTraversal (matrix) {
-  
+const spiralTraversal = matrix => {
+  let borders = { right: matrix[0].length, down: matrix.length, left: 0, up: 0 }, output = [];
+
+  while(output.length < matrix.length * matrix[0].length) {
+    for(var i = borders.left; i < borders.right; i++)
+      output.push(matrix[borders.up][i]);
+    borders.up++;
+
+    for(var j = borders.up; j < borders.down; j++)
+      output.push(matrix[j][borders.right - 1]);
+    borders.right--;
+
+    if(output.length < matrix.length * matrix[0].length) {
+	    for(var k = borders.right - 1; k >= borders.left; k--)
+	      output.push(matrix[borders.down - 1][k]);
+    }
+    borders.down--;
+
+    if(output.length < matrix.length * matrix[0].length) {
+	    for(var l = borders.down - 1; l >= borders.up; l--)
+	      output.push(matrix[l][borders.left]);
+    }
+    borders.left++;
+  }
+  return output;
 }
