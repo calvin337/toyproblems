@@ -64,6 +64,47 @@
 
 // Code:
 
-function mergeSort(arr){
+function mergeSort(arr) {
+	let subList = [];
+	for(let val of arr) {
+		subList.push([val])
+	}
+	console.log('subList :', subList);
+	var recurse = function(subL) {
+		for(var i = 0; i < subL.length; i+=2) {
+			let firstArr = subL[i];
+			let secondArr = subL[i+1] || [];
+			let merged = [];
+			let firstLength = firstArr.length;
+			let secondLength = secondArr.length;
+			let currFirst = firstArr.shift();
+			let currSecond = secondArr.shift();
+			console.log(firstLength);
+			console.log(secondLength);
+			while(firstLength > 0 || secondLength > 0) {
+				if(currSecond === undefined) {
+					merged.push(currFirst);
+				} else {
+					if(currFirst > currSecond) {
+						merged.push(currSecond);
+						currSecond = secondArr.shift();
+	          			secondLength--;
+					} else {
+						merged.push(currFirst);
+						currFirst = firstArr.shift();
+	          			firstLength--;
+					}
+				}
+				console.log(merged)
 
+			}
+		}
+	}
+
+	recurse(subList);
 }
+
+mergeSort([4,7,4,3,9,1,2]);
+
+
+mergeSort([4,7,4,3,9,1,2]);
