@@ -32,6 +32,24 @@
 // Code:
 var coins = [1,2,5,10,20,50,100,200];
 
-var coinSums = function(total) {
-
+function coinSums (total) {
+let penceArr = [200, 100, 50, 20, 10, 5, 2, 1], count = 0;
+  let recurse = (currSum, poss) => {
+    if(currSum === total) {
+      count++;
+    }
+    else {
+      for(let i = 0; i < poss.length; i++) {
+        let remainder = total - currSum;
+        if(poss[i] <= remainder) {
+          let numOfCoin = Math.floor(remainder / poss[i]);
+          for(let j=0; j<numOfCoin; j++) {
+            recurse(currSum + ((numOfCoin-j) * poss[i]), poss.slice(i+1));
+          }
+        }
+      }
+    }
+}
+  recurse(0, penceArr);
+  return count;
 }
