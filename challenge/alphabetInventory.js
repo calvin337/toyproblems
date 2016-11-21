@@ -11,5 +11,27 @@
 
 // Code:
 function alphaCount (alphabet, text) {
+  alphaObj = {};
+  console.log(alphabet.split(''));
+  alphabet.split('').forEach(letter => {
+    alphaObj[letter.toLowerCase()] = 0;
+  });
+  console.log(alphaObj);
+  text.split('').forEach(letter => {
+    if(alphaObj[letter.toLowerCase()] !== undefined) {
+      alphaObj[letter.toLowerCase()]++;
+    }
+  });
 
+  let valid = [];
+  Object.keys(alphaObj).forEach(letter => {
+    if(alphaObj[letter] !== 0) {
+      valid.push(letter + ':' + alphaObj[letter]);
+    } else {
+      alphaObj[letter] = undefined;
+    }
+  })
+
+  if(valid.length === 0) return 'no matches';
+  return valid.join(',');
 }
