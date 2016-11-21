@@ -12,5 +12,20 @@
 
 // Code:
 function allAnagrams (string) {
+  let results = [];
 
+  const recurse = (curr, choices) => {
+    if(curr.length === string.length && !results.includes(curr)) {
+      results.push(curr);
+    } else {
+      choices.forEach((choice, index) => {
+        let newChoices = choices.slice();
+        newChoices.splice(index, 1);
+        recurse(curr+choice, newChoices);
+      });
+    }
+  }
+
+  recurse('', string.split(''));
+  return results;
 }
