@@ -10,5 +10,30 @@
 
 // Code:
 function characterFrequency (string) {
+  // let freq = [];
+  // for(c of string) {
+  //   let made = false;
+  //   for(arr of freq) {
+  //     if(arr[0] === c) {
+  //       arr[1]++;
+  //       made = true;
+  //     }
+  //   }
+  //   if(!made) {
+  //     freq.push([c, 1]);
+  //   }
+  // }
 
+  // return freq;
+  return groupRepeatedChars(string)
+    .sort((a,b) => b.length - a.length || a.localeCompare(b))
+    .map(item => [item[0], item.length])
+}
+
+const groupRepeatedChars = (str) => {
+  return str
+    .split('')
+    .sort()
+    .join('')
+    .match(/(\D)\1*/g) || [];
 }
