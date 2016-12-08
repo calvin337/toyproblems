@@ -10,10 +10,31 @@
 
 // Test Cases:
 // telephoneWords("00002") => [ "000A", "000B", "000C" ]
-// telephoneWords("1123") => [ "11AD", "11AE", "11AF", "11BD", "11BE", "11BF", "11CD", "11CE", "11CF" ] 
+// telephoneWords("1123") => [ "11AD", "11AE", "11AF", "11BD", "11BE", "11BF", "11CD", "11CE", "11CF" ]
 
 // Code:
 
-function telephoneWords(digitString) {
+const telephoneWords = (digitString, results = []) => {
+  const numToLetters = {
+  '0' : ['0'],
+  '1' : ['1'],
+  '2' : ['A', 'B', 'C'],
+  '3' : ['D', 'E', 'F'],
+  '4' : ['G', 'H', 'I'],
+  '5' : ['J', 'K', 'L'],
+  '6' : ['M', 'N', 'O'],
+  '7' : ['P', 'Q', 'R', 'S'],
+  '8' : ['T', 'U', 'V'],
+  '9' : ['W', 'X', 'Y', 'Z']
+  };
 
+  const recurse = (currStr, digIndex) => {
+    if(currStr.length === digitString.length) results.push(currStr)
+    else {
+      let currArr = numToLetters[digitString.charAt(digIndex)];
+      for(let value of currArr) recurse(currStr + value, digIndex + 1);
+    }
+  }
+  recurse('', 0);
+  return results;
 }
