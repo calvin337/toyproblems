@@ -30,6 +30,30 @@
 //               0...0 ) => 5
 
 // Code:
-function countIslands (mapStr) {
+const countIslands = mapStr => {
+  let islands = 0;
+  const grid = mapStr.split("\n").map(function(row) { return row.split(''); });
 
+  const checkIsland = (row, col) => {
+    grid[row][col] = '.';
+    if(row > 0 && grid[row - 1][col] === '0')
+      checkIsland(row - 1, col);
+    if(row < grid.length - 1 && grid[row + 1][col] === '0')
+      checkIsland(row + 1, col);
+    if(col > 0 && grid[row][col - 1] === '0')
+      checkIsland(row, col -1)
+    if(col < grid[row].length - 1 && grid[row][col + 1] === '0')
+      checkIsland(row, col+1)
+  }
+
+  grid.forEach((row, rowInd) => {
+    row.forEach((colVal, colInd) => {
+      if(colVal === '0') {
+        islands++;
+        checkIsland(rowInd, colInd);
+      }
+    });
+  });
+
+  return islands;
 }
