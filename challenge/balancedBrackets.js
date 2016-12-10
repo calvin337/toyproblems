@@ -13,5 +13,16 @@
 // Code:
 
 function isBalanced (str) {
+  var charArr = ['[', ']', '{', '}','(', ')'];
+  var recentLefts = [];
 
+  for(c of str) {
+    if(c === '{' || c === '[' || c === '(') {
+      recentLefts.push(c);
+    } else if(charArr.indexOf(c) >= 0 && charArr.indexOf(recentLefts.pop()) + 1 !== charArr.indexOf(c)) {
+        return false;
+    }
+  }
+
+  return recentLefts.length === 0
 }
