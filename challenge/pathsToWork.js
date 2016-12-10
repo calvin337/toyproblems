@@ -13,6 +13,9 @@
 // pathsToWork(4,4) => 70
 
 // Code:
-function pathsToWork (e, s) {
+const pathsToWork = (e, n) => {
+  let paths = 0, factorialArr = [1, 1, 2], moves = e + n;
 
+  for(var i = 3; i <= moves; i++) factorialArr[i] = factorialArr[i-1] * i;
+  return factorialArr[moves]/(factorialArr[e] * factorialArr[n]);
 }
